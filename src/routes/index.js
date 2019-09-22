@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const logger = require('../utils/logger')
-const userAPI = require('../api/v1.0/user')
+const userAPI = require('../api/v1.0/userAPI')
 
 router.use((req, res, next) => {
   logger.log('ROUTER:', req.method, req.url)

@@ -1,11 +1,14 @@
-const logger = require('../utils/logger')
+const User = require('../models/user')
 
 const get = () => {
-  logger.log('get')
+  return 'GET'
 }
 
-const post = () => {
-  logger.log('post')
+const post = async name => {
+  const user = new User({ name: name })
+  const retVal = await user.save()
+
+  return retVal
 }
 
 module.exports = { get, post }
