@@ -23,6 +23,6 @@ schema.pre('save', () => {
   logger.log('Schema pre-save')
 })
 
-const User = mongoose.model('User', schema)
+const User = mongoose.model('User', schema, 'User')
 
 module.exports = User
