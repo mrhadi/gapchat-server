@@ -1,4 +1,6 @@
 require('dotenv').config()
+require('./src/db/dbConnection')
+
 const Server = require('./src/server')
 const logger = require('./src/utils/logger')
 

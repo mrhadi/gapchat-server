@@ -6,11 +6,11 @@ const start = async () => {
   try {
     const app = await makeApp()
     const server = await app.listen(PORT)
-    logger.log('Server started. Listening on port', PORT)
+    logger.log('Server started and listening on port', PORT)
 
     return { server }
   } catch (err) {
-    logger.log('Could not start the server', err)
+    logger.log('Could not start the server:', err)
     throw err
   }
 }
