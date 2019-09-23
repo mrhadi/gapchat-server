@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const logger = require('../utils/logger')
-const userAPI = require('../api/v1.0/userAPI')
+const apiRouter = require('../api')
 
 router.use((req, res, next) => {
   logger.log('ROUTER:', req.method, req.url)
@@ -12,6 +12,6 @@ router.get('/', (req, res) => {
   res.status(200).send('Server root')
 })
 
-router.use('/api/v1/user', userAPI)
+router.use('/api', apiRouter)
 
 module.exports = router
