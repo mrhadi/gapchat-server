@@ -1,3 +1,3 @@
 #!/bin/bash
 cd /var/apps/gapchat
-npm start
+nohup npm start
