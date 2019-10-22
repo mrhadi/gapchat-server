@@ -3,4 +3,7 @@ os: linux
 files:
   - source: /
     destination: /var/apps/gapchat
+hooks:
+  ApplicationStart:
+    - location: scripts/start.sh
 
