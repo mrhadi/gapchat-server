@@ -1,5 +1,5 @@
 #!/bin/bash
 export PM2_HOME=~/.pm2
-pm2 delete gapchat
+sudo pm2 delete gapchat
 cd /var/apps/gapchat
-pm2 start --name gapchat npm -- start
+sudo pm2 start --name gapchat npm -- start
