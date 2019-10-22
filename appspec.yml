@@ -1,5 +1,4 @@
 version: 0.0
-runas: ec2-user
 os: linux
 files:
   - source: /
