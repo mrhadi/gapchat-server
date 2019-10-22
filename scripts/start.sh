@@ -1,3 +1,3 @@
 #!/bin/bash
 cd /var/apps/gapchat
-nohup npm start
+pm2 start index.js
