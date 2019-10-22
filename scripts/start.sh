@@ -1,1 +1,1 @@
-NODE_PATH=. node index.js
+node index.js
