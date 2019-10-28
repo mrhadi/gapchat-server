@@ -1,3 +1,2 @@
 #!/bin/bash
-cd /var/apps/gapchat
-npm start
+su - ec2-user -c "cd /var/apps/gapchat; npm start"
