@@ -1,4 +1,4 @@
 #!/bin/bash
 cd /var/apps/gapchat
-su - ubuntu
+su - ec2-user
 npm start
