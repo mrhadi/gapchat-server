@@ -7,5 +7,3 @@ hooks:
   ApplicationStart:
     - location: scripts/run.sh
       timeout: 300
-      runas: ec2-user
-
