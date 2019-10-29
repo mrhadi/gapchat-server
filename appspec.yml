@@ -1,9 +1,0 @@
-version: 0.0
-os: linux
-files:
-  - source: /
-    destination: /var/apps/gapchat
-hooks:
-  ApplicationStart:
-    - location: scripts/run.sh
-      timeout: 360
