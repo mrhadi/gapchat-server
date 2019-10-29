@@ -1,7 +1,8 @@
 const User = require('../models/user')
 
-const get = () => {
-  return 'GET'
+const get = async userData => {
+  const user = await User.findOne({ deviceId: userData['device-id'] })
+  return user
 }
 
 const post = async userData => {

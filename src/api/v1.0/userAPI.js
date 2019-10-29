@@ -5,8 +5,17 @@ const { get, post } = require('../../controllers/user')
 
 router.get(
   '/',
+  [check('device-id').isString()],
   asyncHandler(async (req, res) => {
-    const retVal = get()
+    const result = validationResult(req)
+    if (!result.isEmpty()) {
+      return res.status(422).json({ errors: result.array() })
+    }
+
+    const userData = matchedData(req, {
+      locations: ['headers']
+    })
+    const retVal = await get(userData)
     res.status(200).send(retVal)
   })
 )
