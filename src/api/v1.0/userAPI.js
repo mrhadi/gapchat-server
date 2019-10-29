@@ -18,7 +18,7 @@ router.post(
     check('avatar').isString(),
     check('nearest').isInt(),
     check('furthest').isInt(),
-    check('deviceId').isString()
+    check('device-id').isString()
   ],
   asyncHandler(async (req, res) => {
     const result = validationResult(req)
@@ -26,7 +26,9 @@ router.post(
       return res.status(422).json({ errors: result.array() })
     }
 
-    const userData = matchedData(req, { locations: ['query'] })
+    const userData = matchedData(req, {
+      locations: ['body', 'headers']
+    })
     const retVal = await post(userData)
     res.status(200).send(retVal)
   })

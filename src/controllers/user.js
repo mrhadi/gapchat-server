@@ -10,7 +10,7 @@ const post = async userData => {
     avatar: userData.avatar,
     nearest: userData.nearest,
     furthest: userData.furthest,
-    deviceId: userData.deviceId
+    deviceId: userData['device-id']
   })
 
   const retVal = await user.save()
