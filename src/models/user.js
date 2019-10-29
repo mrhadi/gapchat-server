@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
 const schema = new Schema({
-  name: {
+  nickName: {
     type: String,
     required: [true]
   },
@@ -16,6 +16,27 @@ const schema = new Schema({
   },
   createdBy: {
     type: ObjectId
+  },
+  active: {
+    type: Boolean,
+    default: true,
+    required: [true]
+  },
+  nearest: {
+    type: Number,
+    required: [true]
+  },
+  furthest: {
+    type: Number,
+    required: [true]
+  },
+  avatar: {
+    type: String,
+    required: [true]
+  },
+  deviceId: {
+    type: String,
+    required: [true]
   }
 })
 

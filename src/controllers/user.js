@@ -4,10 +4,16 @@ const get = () => {
   return 'GET'
 }
 
-const post = async name => {
-  const user = new User({ name: name })
-  const retVal = await user.save()
+const post = async userData => {
+  const user = new User({
+    nickName: userData.nickName,
+    avatar: userData.avatar,
+    nearest: userData.nearest,
+    furthest: userData.furthest,
+    deviceId: userData.deviceId
+  })
 
+  const retVal = await user.save()
   return retVal
 }
 
