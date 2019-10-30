@@ -19,10 +19,12 @@ const schema = new Schema(
     location: {
       type: {
         type: String,
-        enum: ['Point']
+        enum: ['Point'],
+        required: true
       },
       coordinates: {
-        type: Array
+        type: [Number],
+        required: true
       }
     }
   },
