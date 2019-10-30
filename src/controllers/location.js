@@ -59,7 +59,7 @@ const post = async locationData => {
     locationData.longitude,
     nearestLocation[1],
     nearestLocation[0],
-    'K'
+    'M'
   )
 
   logger.log(
