@@ -21,6 +21,7 @@ const post = async locationData => {
   console.log(user)
 
   const nearest = await UserLocation.findOne({
+    deviceId: { $ne: user.deviceId },
     location: {
       $near: {
         $geometry: {
