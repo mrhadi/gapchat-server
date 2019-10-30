@@ -17,14 +17,16 @@ const post = async locationData => {
     location,
     { new: true, upsert: true, setDefaultsOnInsert: true }
   )
-  if (!userLocation) logger.log(`Can't update UserLocation!`)
-
-  const user = await User.findOne({ deviceId: locationData['device-id'] })
-  if (!user) {
-    logger.log(`Can't find user!`)
+  if (!userLocation) {
+    logger.log(`Can't update UserLocation, deviceId: ${location.deviceId}`)
     return null
   }
-  logger.log('User:', user.nickName)
+
+  const user = await User.findOne({ deviceId: location.deviceId })
+  if (!user) {
+    logger.log(`Can't find user, deviceId: ${location.deviceId}`)
+    return null
+  }
 
   const nearest = await UserLocation.findOne({
     deviceId: { $ne: user.deviceId },
@@ -40,16 +42,17 @@ const post = async locationData => {
     }
   })
   if (!nearest) {
-    logger.log(`Can't find any other user nearby.`)
+    logger.log(`Can't find any nearby user for ${user.nickName}`)
     return null
   }
 
   const nearestUser = await User.findOne({ deviceId: nearest.deviceId })
   if (!nearestUser) {
-    logger.log(`Can't find nearestUser!`)
+    logger.log(`Can't find nearestUser, deviceId: ${nearest.deviceId}`)
     return null
   }
-  logger.log('Nearest user:', nearestUser.nickName)
+
+  logger.log(`User: ${user.nickName}, Nearest: ${nearestUser.nickName}`)
 
   return { nearest: nearest, nearestUser: nearestUser }
 }
