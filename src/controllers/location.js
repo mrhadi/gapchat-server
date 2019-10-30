@@ -24,7 +24,6 @@ const post = async locationData => {
     logger.log(`Can't find user!`)
     return null
   }
-
   logger.log('User:', user.nickName)
 
   const nearest = await UserLocation.findOne({
@@ -40,10 +39,19 @@ const post = async locationData => {
       }
     }
   })
+  if (!nearest) {
+    logger.log(`Can't find any other user nearby.`)
+    return null
+  }
 
-  logger.log('Nearest:', nearest)
+  const nearestUser = await User.findOne({ deviceId: nearest.deviceId })
+  if (!nearestUser) {
+    logger.log(`Can't find nearestUser!`)
+    return null
+  }
+  logger.log('Nearest user:', nearestUser.nickName)
 
-  return { nearest: nearest }
+  return { nearest: nearest, nearestUser: nearestUser }
 }
 
 module.exports = { post }
