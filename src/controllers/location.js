@@ -1,3 +1,4 @@
+const geolib = require('geolib')
 const UserLocation = require('../models/userLocation')
 const User = require('../models/user')
 const logger = require('../utils/logger')
@@ -52,9 +53,17 @@ const post = async locationData => {
     return null
   }
 
-  logger.log(`User: ${user.nickName}, Nearest: ${nearestUser.nickName}`)
+  const nearestLocation = nearest.location.coordinates
+  const distance = geolib.getDistance(
+    { latitude: locationData.latitude, longitude: locationData.longitude },
+    { latitude: nearestLocation[0], longitude: [1] }
+  )
 
-  return { nearest: nearest, nearestUser: nearestUser }
+  logger.log(
+    `User: ${user.nickName}, Nearest: ${nearestUser.nickName}, Distance: ${distance}`
+  )
+
+  return { nearest, nearestUser, distance }
 }
 
 module.exports = { post }
