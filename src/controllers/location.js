@@ -57,7 +57,7 @@ const post = async locationData => {
   const nearestLocation = nearest.location.coordinates
   const distance = geolib.getDistance(
     { latitude: locationData.latitude, longitude: locationData.longitude },
-    { latitude: nearestLocation[0], longitude: nearestLocation[1] }
+    nearestLocation
   )
 
   logger.log(
