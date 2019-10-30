@@ -6,7 +6,8 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     keepAlive: true,
-    keepAliveInitialDelay: 300000
+    keepAliveInitialDelay: 300000,
+    useFindAndModify: false
   })
   .catch(err => {
     logger.error('mongoose.connect:', err)

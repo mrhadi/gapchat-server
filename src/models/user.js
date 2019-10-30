@@ -41,7 +41,7 @@ const schema = new Schema({
 })
 
 schema.pre('save', () => {
-  logger.log('Schema pre-save')
+  logger.log('User schema pre-save')
 })
 
 const User = mongoose.model('User', schema, 'User')
