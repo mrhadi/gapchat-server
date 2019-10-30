@@ -1,4 +1,4 @@
-import getDistance from 'geolib/es/getDistance'
+const geolib = require('geolib')
 
 const UserLocation = require('../models/userLocation')
 const User = require('../models/user')
@@ -55,7 +55,7 @@ const post = async locationData => {
   }
 
   const nearestLocation = nearest.location.coordinates
-  const distance = getDistance(
+  const distance = geolib.getDistance(
     { latitude: locationData.latitude, longitude: locationData.longitude },
     { latitude: nearestLocation[0], longitude: nearestLocation[1] }
   )
