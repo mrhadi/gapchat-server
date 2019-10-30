@@ -4,7 +4,7 @@ const logger = require('../utils/logger')
 const Schema = mongoose.Schema
 
 const schema = new Schema({
-  updatedAt: {
+  createdAt: {
     type: Date,
     default: Date.now(),
     required: [true]
