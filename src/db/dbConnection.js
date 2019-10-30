@@ -7,7 +7,8 @@ mongoose
     useUnifiedTopology: true,
     keepAlive: true,
     keepAliveInitialDelay: 300000,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useCreateIndex: true
   })
   .catch(err => {
     logger.error('mongoose.connect:', err)

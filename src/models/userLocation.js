@@ -18,20 +18,17 @@ const schema = new Schema(
     },
     location: {
       type: {
-        type: String,
-        enum: ['Point'],
-        required: true
+        type: String
       },
-      coordinates: {
-        type: [Number],
-        required: true
-      }
+      coordinates: []
     }
   },
   {
     timestamps: true
   }
 )
+
+schema.index({ location: '2dsphere' })
 
 schema.pre('save', () => {
   logger.log('UserLocation schema pre-save')
