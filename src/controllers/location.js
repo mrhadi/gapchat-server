@@ -7,7 +7,7 @@ const post = async locationData => {
     speed: locationData.speed,
     location: {
       type: 'Point',
-      coordinates: [locationData.latitude, locationData.longitude]
+      coordinates: [locationData.longitude, locationData.latitude]
     }
   }
 
