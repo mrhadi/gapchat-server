@@ -8,7 +8,7 @@ const post = async locationData => {
     speed: locationData.speed,
     location: {
       type: 'Point',
-      coordinates: [locationData.longitude, locationData.latitude]
+      coordinates: [locationData.latitude, locationData.longitude]
     }
   }
 
@@ -34,7 +34,7 @@ const post = async locationData => {
       $near: {
         $geometry: {
           type: 'Point',
-          coordinates: [locationData.longitude, locationData.latitude]
+          coordinates: [locationData.latitude, locationData.longitude]
         },
         $maxDistance: user.nearest,
         $minDistance: 0

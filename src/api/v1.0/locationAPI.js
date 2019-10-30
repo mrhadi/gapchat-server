@@ -19,7 +19,7 @@ router.post(
     }
 
     const locationData = matchedData(req, {
-      locations: ['body', 'headers', 'query']
+      locations: ['body', 'headers']
     })
 
     const retVal = await post(locationData)
