@@ -13,7 +13,7 @@ const post = async userData => {
   const user = await UserLocation.findOneAndUpdate(
     { deviceId: userData['device-id'] },
     locationData,
-    { new: true, upsert: true }
+    { new: true, upsert: true, setDefaultsOnInsert: true }
   )
   return user
 }

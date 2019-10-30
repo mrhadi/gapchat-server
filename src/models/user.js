@@ -4,41 +4,41 @@ const logger = require('../utils/logger')
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
-const schema = new Schema({
-  nickName: {
-    type: String,
-    required: [true]
+const schema = new Schema(
+  {
+    createdBy: {
+      type: ObjectId
+    },
+    nickName: {
+      type: String,
+      required: [true]
+    },
+    active: {
+      type: Boolean,
+      default: true,
+      required: [true]
+    },
+    nearest: {
+      type: Number,
+      required: [true]
+    },
+    furthest: {
+      type: Number,
+      required: [true]
+    },
+    avatar: {
+      type: String,
+      required: [true]
+    },
+    deviceId: {
+      type: String,
+      required: [true]
+    }
   },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-    required: [true]
-  },
-  createdBy: {
-    type: ObjectId
-  },
-  active: {
-    type: Boolean,
-    default: true,
-    required: [true]
-  },
-  nearest: {
-    type: Number,
-    required: [true]
-  },
-  furthest: {
-    type: Number,
-    required: [true]
-  },
-  avatar: {
-    type: String,
-    required: [true]
-  },
-  deviceId: {
-    type: String,
-    required: [true]
+  {
+    timestamps: true
   }
-})
+)
 
 schema.pre('save', () => {
   logger.log('User schema pre-save')
