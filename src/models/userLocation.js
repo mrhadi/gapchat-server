@@ -34,6 +34,7 @@ const schema = new Schema(
 )
 
 schema.index({ location: '2dsphere' })
+schema.index({ updatedAt: 1 }, { expireAfterSeconds: 300 })
 
 schema.pre('save', () => {
   logger.log('UserLocation schema pre-save')
