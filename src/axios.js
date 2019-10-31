@@ -1,6 +1,6 @@
 const axios = require('axios')
 const logger = require('./utils/logger')
-console.log(process.env.API_ENDPOINT)
+
 const instance = axios.create({
   baseURL: process.env.API_ENDPOINT,
   timeout: 5000
