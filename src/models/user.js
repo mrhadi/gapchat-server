@@ -40,6 +40,8 @@ const schema = new Schema(
   }
 )
 
+schema.index({ deviceId: 1 })
+
 schema.pre('save', () => {
   logger.log('User schema pre-save')
 })
