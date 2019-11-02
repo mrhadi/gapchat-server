@@ -37,11 +37,10 @@ const post = async locationData => {
           type: 'Point',
           coordinates: [locationData.longitude, locationData.latitude]
         },
-        $maxDistance: user.nearest,
-        $minDistance: 0
+        $maxDistance: user.nearest
       }
     }
-  })
+  }).sort('updatedAt')
   if (!nearest) {
     logger.log(`Can't find any nearby user for ${user.nickName}`)
     return { userLocation }
