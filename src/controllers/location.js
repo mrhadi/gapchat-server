@@ -13,6 +13,11 @@ const post = async locationData => {
     }
   }
 
+  const source =
+    locationData.metaData && locationData.metaData.source
+      ? locationData.metaData.source
+      : ''
+
   const userLocation = await UserLocation.findOneAndUpdate(
     { deviceId: locationData['device-id'] },
     location,
@@ -42,13 +47,17 @@ const post = async locationData => {
     }
   }).sort('-updatedAt')
   if (!nearest) {
-    logger.log(`Can't find any nearby user for ${user.nickName}`)
+    logger.log(
+      `User: ${user.nickName}, can't find any nearby user, [${source}]`
+    )
     return { userLocation }
   }
 
   const nearestUser = await User.findOne({ deviceId: nearest.deviceId })
   if (!nearestUser) {
-    logger.log(`Can't find nearestUser, deviceId: ${nearest.deviceId}`)
+    logger.log(
+      `User: ${user.nickName}, can't find nearestUser, deviceId: ${nearest.deviceId}, [${source}]}`
+    )
     return { userLocation }
   }
 
@@ -62,7 +71,7 @@ const post = async locationData => {
   )
 
   logger.log(
-    `User: ${user.nickName}, Nearest: ${nearestUser.nickName}, Distance: ${distance}`
+    `User: ${user.nickName}, Nearest: ${nearestUser.nickName}, Distance: ${distance}, [${source}]`
   )
 
   return { userLocation, nearest, nearestUser, distance }
