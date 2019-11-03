@@ -33,10 +33,6 @@ const schema = new Schema(
     deviceId: {
       type: String,
       required: [true]
-    },
-    userLocation: {
-      type: ObjectId,
-      ref: 'UserLocation'
     }
   },
   {

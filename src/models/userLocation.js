@@ -29,10 +29,6 @@ const schema = new Schema(
     },
     requestedBy: {
       type: String
-    },
-    hadi: {
-      type: ObjectId,
-      ref: 'User'
     }
   },
   {
