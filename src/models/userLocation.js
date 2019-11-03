@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const autopopulate = require('mongoose-autopopulate')
+
 const logger = require('../utils/logger')
 
 const Schema = mongoose.Schema
@@ -29,12 +31,19 @@ const schema = new Schema(
     },
     requestedBy: {
       type: String
+    },
+    lead: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      autopopulate: true
     }
   },
   {
     timestamps: true
   }
 )
+
+schema.plugin(autopopulate)
 
 schema.index({ location: '2dsphere' })
 schema.index({ updatedAt: 1 }) // { expireAfterSeconds: 360 }

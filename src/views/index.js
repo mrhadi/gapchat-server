@@ -7,7 +7,7 @@ router.get(
   '/user/location',
   asyncHandler(async (req, res) => {
     const userLocation = await UserLocation.find().sort('-updatedAt')
-
+    console.log('userLocation:', userLocation)
     res.render('userLocation', { userLocation })
   })
 )

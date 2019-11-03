@@ -1,19 +1,19 @@
 html
-    head
-        title= 'GapChat'
-        link(rel='stylesheet', href='/styles/css/bootstrap.min.css')
-    body
-        div(class='table-responsive text-nowrap')
-            table(class='table table-bordered')
-                thead
-                    tr
-                        th requestedBy
-                        th updatedAt
-                        th deviceId
-                tbody
-                    each location in userLocation.length ? userLocation : []
-                        tr
-                            th= location.requestedBy
-                            th= moment(location.updatedAt).format('YYYY-MM-DD h:mm:ss a')
-                            th= location.deviceId
+  head
+    title='GapChat'
+    link(rel='stylesheet', href='/styles/css/bootstrap.min.css')
+  body
+    div(class='table-responsive text-nowrap')
+      table(class='table table-bordered')
+        thead
+          tr
+            th requestedBy
+            th updatedAt
+            th deviceId
+        tbody
+          each location in userLocation.length ? userLocation : []
+            tr
+              th= location.requestedBy
+              th= moment(location.updatedAt).format('YYYY-MM-DD h:mm:ss a')
+              th= location.deviceId
 
