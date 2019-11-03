@@ -32,7 +32,6 @@
     "http-status-codes": "^1.3.2",
     "moment": "^2.24.0",
     "mongoose": "^5.7.1",
-    "mongoose-autopopulate": "^0.9.1",
     "node-http-error": "^2.0.0",
     "pug": "^2.0.4",
     "route-async": "^1.0.5"
