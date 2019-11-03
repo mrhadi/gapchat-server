@@ -25,7 +25,7 @@ const logger = {
     writeLog('debug', ...params)
   },
   error: error => {
-    bugsnagClient.notify(error)
+    // bugsnagClient.notify(error)
     writeLog('error', error)
   },
   info: (...params) => {
