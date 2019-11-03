@@ -10,7 +10,8 @@ router.post(
     check('device-id').isString(),
     check('latitude').isFloat(),
     check('longitude').isFloat(),
-    check('speed').isFloat()
+    check('speed').isFloat(),
+    check('metaData').optional({ nullable: true })
   ],
   asyncHandler(async (req, res) => {
     const result = validationResult(req)
@@ -19,7 +20,6 @@ router.post(
     }
 
     const locationData = matchedData(req, {
-      locations: ['body', 'headers'],
       includeOptionals: true
     })
 
