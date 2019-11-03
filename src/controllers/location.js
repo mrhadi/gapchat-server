@@ -19,6 +19,12 @@ const post = async locationData => {
     requestedBy: requestedBy
   }
 
+  const user = await User.findOne({ deviceId: location.deviceId })
+  if (!user) {
+    logger.log(`Can't find user, deviceId: ${location.deviceId}`)
+    return null
+  }
+
   const userLocation = await UserLocation.findOneAndUpdate(
     { deviceId: locationData['device-id'] },
     location,
@@ -27,12 +33,6 @@ const post = async locationData => {
   if (!userLocation) {
     logger.log(`Can't update UserLocation, deviceId: ${location.deviceId}`)
     return null
-  }
-
-  const user = await User.findOne({ deviceId: location.deviceId })
-  if (!user) {
-    logger.log(`Can't find user, deviceId: ${location.deviceId}`)
-    return { userLocation }
   }
 
   const nearest = await UserLocation.findOne({
