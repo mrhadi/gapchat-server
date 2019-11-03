@@ -10,7 +10,7 @@ const start = async () => {
 
     return { server }
   } catch (err) {
-    logger.log('Could not start the server:', err)
+    logger.error('Could not start the server:', err)
     throw err
   }
 }

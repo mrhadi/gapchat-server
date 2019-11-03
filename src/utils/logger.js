@@ -1,3 +1,5 @@
+const { bugsnagClient } = require('../bugsnag')
+
 const writeLog = (level, ...params) => {
   switch (level) {
     case 'debug': {
@@ -23,6 +25,7 @@ const logger = {
     writeLog('debug', ...params)
   },
   error: (...params) => {
+    bugsnagClient.notify(...params)
     writeLog('error', ...params)
   },
   info: (...params) => {
