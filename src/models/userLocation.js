@@ -30,7 +30,7 @@ const schema = new Schema(
     requestedBy: {
       type: String
     },
-    user: {
+    hadi: {
       type: ObjectId,
       ref: 'User'
     }
