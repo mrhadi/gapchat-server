@@ -16,7 +16,7 @@ html
           each location in userLocation.length ? userLocation : []
             tr
               th= location.requestedBy
-              th= moment().tz(location.updatedAt, 'Australia/Sydney').format('YYYY-MM-DD hh:mm:ss a')
+              th= moment(location.updatedAt).tz('Australia/Sydney').format('YYYY-MM-DD hh:mm:ss a')
               if location.fromUser[0]
                 th= location.fromUser[0].nickName
               else
