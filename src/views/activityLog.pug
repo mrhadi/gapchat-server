@@ -1,0 +1,22 @@
+html
+	head
+		title='GapChat'
+		link(rel='stylesheet', href='/styles/bootstrap.min.css')
+		script(src='/scripts/autoRefreshPage.js')
+	body
+		div(class='table-responsive text-nowrap')
+			table(class='table table-bordered')
+				thead
+					tr
+						th Context
+						th Param
+						th User
+						th Last Update
+				tbody
+					each log in activityLog.length ? activityLog : []
+						tr
+							th= log.context
+							th= log.param
+							th= log.user
+							th= moment(log.updatedAt).tz('Australia/Sydney').format('YYYY-MM-DD hh:mm:ss a')
+
