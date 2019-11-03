@@ -10,7 +10,8 @@ router.post(
     check('device-id').isString(),
     check('latitude').isFloat(),
     check('longitude').isFloat(),
-    check('speed').isFloat()
+    check('speed').isFloat(),
+    check('source').isString()
   ],
   asyncHandler(async (req, res) => {
     const result = validationResult(req)
