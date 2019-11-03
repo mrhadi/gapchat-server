@@ -20,8 +20,7 @@ router.post(
     }
 
     const locationData = matchedData(req, {
-      includeOptionals: true,
-      checkFalsy: true
+      includeOptionals: true
     })
 
     const retVal = await post(locationData)
