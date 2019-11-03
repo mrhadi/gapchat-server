@@ -13,7 +13,6 @@ const post = async locationData => {
     }
   }
 
-  logger.log(locationData)
   const source =
     locationData.metaData && locationData.metaData.source
       ? locationData.metaData.source
