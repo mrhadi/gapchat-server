@@ -11,7 +11,7 @@ router.post(
     check('latitude').isFloat(),
     check('longitude').isFloat(),
     check('speed').isFloat(),
-    check('source').isString()
+    check('source').isJSON()
   ],
   asyncHandler(async (req, res) => {
     const result = validationResult(req)
