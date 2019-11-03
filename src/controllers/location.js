@@ -1,6 +1,7 @@
 const UserLocation = require('../models/userLocation')
 const User = require('../models/user')
 const logger = require('../utils/logger')
+const activityLogger = require('../utils/activityLogger')
 const geoDistance = require('../utils/geoDistance')
 
 const post = async locationData => {
@@ -25,13 +26,24 @@ const post = async locationData => {
     return null
   }
 
+  const activityObject = {
+    context: 'UserLocation',
+    type: 'Log',
+    message: '',
+    param: requestedBy,
+    user: user.nickName,
+    deviceId: location.deviceId
+  }
+
+  await activityLogger(activityObject)
+
   const userLocation = await UserLocation.findOneAndUpdate(
     { deviceId: locationData['device-id'] },
     location,
     { new: true, upsert: true, setDefaultsOnInsert: true }
   )
   if (!userLocation) {
-    logger.log(`Can't update UserLocation, deviceId: ${location.deviceId}`)
+    logger.log(`User: ${user.nickName}, can't update UserLocation`)
     return null
   }
 
