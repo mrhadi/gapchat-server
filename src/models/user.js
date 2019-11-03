@@ -33,7 +33,8 @@ const schema = new Schema(
     deviceId: {
       type: String,
       required: [true]
-    }
+    },
+    location: { type: ObjectId, ref: 'UserLocation' }
   },
   {
     timestamps: true

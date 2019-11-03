@@ -30,7 +30,7 @@ const schema = new Schema(
     requestedBy: {
       type: String
     },
-    user: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    user: { type: ObjectId, ref: 'User' }
   },
   {
     timestamps: true
