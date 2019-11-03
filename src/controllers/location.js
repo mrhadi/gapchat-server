@@ -14,10 +14,7 @@ const post = async locationData => {
   }
 
   logger.log(locationData)
-  const source =
-    locationData.metaData && locationData.metaData.source
-      ? locationData.metaData.source
-      : ''
+  const source = locationData.source
 
   const userLocation = await UserLocation.findOneAndUpdate(
     { deviceId: locationData['device-id'] },
