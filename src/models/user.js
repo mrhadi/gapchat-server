@@ -34,7 +34,10 @@ const schema = new Schema(
       type: String,
       required: [true]
     },
-    location: { type: ObjectId, ref: 'UserLocation' }
+    userLocation: {
+      type: ObjectId,
+      ref: 'UserLocation'
+    }
   },
   {
     timestamps: true
