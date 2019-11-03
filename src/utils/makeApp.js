@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const moment = require('moment')
+const moment = require('moment-timezone')
 
 const routes = require('../routes')
 
