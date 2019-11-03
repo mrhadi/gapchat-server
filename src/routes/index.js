@@ -9,7 +9,8 @@ router.use((req, res, next) => {
 })
 
 router.get('/', (req, res) => {
-  res.status(200).send('Server root')
+  res.render('index')
+  // res.status(200).send('Server root')
 })
 
 router.use('/api', apiRouter)

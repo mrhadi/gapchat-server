@@ -4,19 +4,20 @@ const logger = require('../utils/logger')
 const geoDistance = require('../utils/geoDistance')
 
 const post = async locationData => {
+  const requestedBy =
+    locationData.metaData && locationData.metaData.requestedBy
+      ? locationData.metaData.requestedBy
+      : ''
+
   const location = {
     deviceId: locationData['device-id'],
     speed: locationData.speed,
     location: {
       type: 'Point',
       coordinates: [locationData.longitude, locationData.latitude]
-    }
+    },
+    requestedBy: requestedBy
   }
-
-  const source =
-    locationData.metaData && locationData.metaData.source
-      ? locationData.metaData.source
-      : ''
 
   const userLocation = await UserLocation.findOneAndUpdate(
     { deviceId: locationData['device-id'] },
@@ -48,7 +49,7 @@ const post = async locationData => {
   }).sort('-updatedAt')
   if (!nearest) {
     logger.log(
-      `User: ${user.nickName}, can't find any nearby user, [${source}]`
+      `User: ${user.nickName}, can't find any nearby user, requestedBy: ${requestedBy}`
     )
     return { userLocation }
   }
@@ -56,7 +57,7 @@ const post = async locationData => {
   const nearestUser = await User.findOne({ deviceId: nearest.deviceId })
   if (!nearestUser) {
     logger.log(
-      `User: ${user.nickName}, can't find nearestUser, deviceId: ${nearest.deviceId}, [${source}]}`
+      `User: ${user.nickName}, can't find nearestUser, deviceId: ${nearest.deviceId}, requestedBy: ${requestedBy}}`
     )
     return { userLocation }
   }
@@ -71,7 +72,7 @@ const post = async locationData => {
   )
 
   logger.log(
-    `User: ${user.nickName}, Nearest: ${nearestUser.nickName}, Distance: ${distance}, [${source}]`
+    `User: ${user.nickName}, Nearest: ${nearestUser.nickName}, Distance: ${distance}, requestedBy: ${requestedBy}`
   )
 
   return { userLocation, nearest, nearestUser, distance }

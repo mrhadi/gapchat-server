@@ -12,6 +12,8 @@ const bugsnagMiddleware = bugsnagClient.getPlugin('express')
 const makeApp = async () => {
   const app = express()
   app.use(bugsnagMiddleware.requestHandler)
+  app.set('views', './src/views')
+  app.set('view engine', 'pug')
   app.use(cors())
   app.use(bodyParser.json())
   app.use('/', routes)

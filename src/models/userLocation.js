@@ -26,6 +26,9 @@ const schema = new Schema(
         type: [Number],
         required: true
       }
+    },
+    requestedBy: {
+      type: String
     }
   },
   {

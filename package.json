@@ -32,6 +32,7 @@
     "http-status-codes": "^1.3.2",
     "mongoose": "^5.7.1",
     "node-http-error": "^2.0.0",
+    "pug": "^2.0.4",
     "route-async": "^1.0.5"
   },
   "devDependencies": {
