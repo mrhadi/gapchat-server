@@ -18,6 +18,9 @@ router.get(
       },
       {
         $sort: { updatedAt: -1 }
+      },
+      {
+        $limit: 500
       }
     ])
 
