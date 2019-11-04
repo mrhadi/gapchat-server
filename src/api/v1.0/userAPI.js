@@ -15,8 +15,13 @@ router.get(
     const userData = matchedData(req, {
       locations: ['headers']
     })
+
     const retVal = await get(userData)
-    res.status(200).send(retVal)
+    if (retVal) {
+      res.status(200).send(retVal)
+    } else {
+      res.status(404).send({ message: `User not found` })
+    }
   })
 )
 

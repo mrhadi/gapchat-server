@@ -2,7 +2,6 @@ const User = require('../models/user')
 
 const get = async userData => {
   const user = await User.findOne({ deviceId: userData['device-id'] })
-  console.log('Find User:', user)
   return user
 }
 
