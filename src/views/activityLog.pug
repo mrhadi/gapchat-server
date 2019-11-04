@@ -13,7 +13,7 @@ html
 						th User
 						th Last Update
 				tbody
-					each log in activityLog.length ? activityLog : []
+					each log in activityLog
 						tr
 							th= log.context
 							th= log.param
