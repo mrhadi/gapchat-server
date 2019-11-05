@@ -1,11 +1,8 @@
 const router = require('express').Router()
-const logger = require('../utils/logger')
 const apiRouter = require('../api')
 const viewRouter = require('../views')
 
 router.use((req, res, next) => {
-  logger.log('ROUTER:', req.method, req.url)
-
   next()
 })
 
