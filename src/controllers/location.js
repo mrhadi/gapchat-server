@@ -65,6 +65,14 @@ const post = async locationData => {
       }
     },
     {
+      $lookup: {
+        from: 'User',
+        localField: 'deviceId',
+        foreignField: 'deviceId',
+        as: 'fromUser'
+      }
+    },
+    {
       $limit: 1
     }
   ])
@@ -89,6 +97,14 @@ const post = async locationData => {
         query: { deviceId: { $ne: user.deviceId } },
         includeLocs: 'location',
         spherical: true
+      }
+    },
+    {
+      $lookup: {
+        from: 'User',
+        localField: 'deviceId',
+        foreignField: 'deviceId',
+        as: 'fromUser'
       }
     },
     {
