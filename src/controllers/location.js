@@ -65,9 +65,6 @@ const post = async locationData => {
       }
     },
     {
-      $sort: { updatedAt: -1 }
-    },
-    {
       $limit: 1
     }
   ])
@@ -95,7 +92,7 @@ const post = async locationData => {
       }
     },
     {
-      $sort: { distance: -1, updatedAt: -1 }
+      $sort: { distance: -1 }
     },
     {
       $limit: 1
