@@ -15,9 +15,5 @@ mongoose
   })
 
 const dbConnection = mongoose.connection
-dbConnection.on('error', logger.error.bind(console, 'mongoose.connection:'))
-dbConnection.once('open', () => {
-  logger.log('MongoDB connected successfully.')
-})
 
 module.exports = dbConnection

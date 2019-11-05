@@ -1,6 +1,6 @@
 require('dotenv').config()
-require('./src/db/dbConnection')
 
+const dbConnection = require('./src/db/dbConnection')
 const Server = require('./src/server')
 const logger = require('./src/utils/logger')
 
@@ -12,6 +12,11 @@ process.on('unhandledRejection', (reason, p) => {
   } else {
     logger.error('Unhandled rejection in promise', p, 'caused by', reason)
   }
+})
+
+dbConnection.on('error', logger.error.bind(console, 'mongoose.connection:'))
+dbConnection.once('open', () => {
+  logger.log('MongoDB connected successfully.')
 })
 
 Server.start()
