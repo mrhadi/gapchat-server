@@ -71,6 +71,28 @@ const post = async locationData => {
     }
   ])
 
+  const furthestLocationAggregate = await UserLocation.aggregate([
+    {
+      $geoNear: {
+        near: {
+          type: 'Point',
+          coordinates: [locationData.longitude, locationData.latitude]
+        },
+        distanceField: 'distance',
+        query: { deviceId: { $ne: user.deviceId } },
+        includeLocs: 'location',
+        spherical: true
+      }
+    },
+    {
+      $sort: { updatedAt: -1, 'dist.calculated': -1 }
+    },
+    {
+      $limit: 1
+    }
+  ])
+  console.log('furthestLocationAggregate:', furthestLocationAggregate)
+
   if (nearestLocationAggregate) {
     nearestLocation = nearestLocationAggregate[0]
     console.log('nearestLocation:', nearestLocation)
