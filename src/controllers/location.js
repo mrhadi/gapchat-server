@@ -58,9 +58,9 @@ const post = async locationData => {
           type: 'Point',
           coordinates: [locationData.longitude, locationData.latitude]
         },
-        distanceField: 'distanced',
+        distanceField: 'distance',
         query: { deviceId: { $ne: user.deviceId } },
-        includeLocs: 'locationn',
+        includeLocs: 'location',
         spherical: true
       }
     },
@@ -71,6 +71,15 @@ const post = async locationData => {
       $limit: 1
     }
   ])
+  if (nearestLocationAggregate) {
+    nearestLocation = nearestLocationAggregate[0]
+    nearestUser = await User.findOne({ deviceId: nearestLocation.deviceId })
+    if (!nearestUser) {
+      logger.log(
+        `User: ${user.nickName}, can't find nearestUser, deviceId: ${nearestLocation.deviceId}, requestedBy: ${requestedBy}}`
+      )
+    }
+  }
 
   const furthestLocationAggregate = await UserLocation.aggregate([
     {
@@ -94,16 +103,6 @@ const post = async locationData => {
   ])
   if (furthestLocationAggregate) {
     furthestLocation = furthestLocationAggregate[0]
-  }
-
-  if (nearestLocationAggregate) {
-    nearestLocation = nearestLocationAggregate[0]
-    nearestUser = await User.findOne({ deviceId: nearestLocation.deviceId })
-    if (!nearestUser) {
-      logger.log(
-        `User: ${user.nickName}, can't find nearestUser, deviceId: ${nearestLocation.deviceId}, requestedBy: ${requestedBy}}`
-      )
-    }
   }
 
   logger.log(
