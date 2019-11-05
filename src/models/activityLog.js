@@ -38,10 +38,6 @@ schema.index({ deviceId: 1 })
 schema.index({ user: 1 })
 schema.index({ updatedAt: 1 })
 
-schema.pre('save', () => {
-  logger.log('ActivityLog schema pre-save')
-})
-
 const ActivityLog = mongoose.model('ActivityLog', schema, 'ActivityLog')
 
 module.exports = ActivityLog

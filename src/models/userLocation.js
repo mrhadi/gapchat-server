@@ -40,10 +40,6 @@ schema.index({ location: '2dsphere' })
 schema.index({ updatedAt: 1 }) // { expireAfterSeconds: 360 }
 schema.index({ deviceId: 1 })
 
-schema.pre('save', () => {
-  logger.log('UserLocation schema pre-save')
-})
-
 const UserLocation = mongoose.model('UserLocation', schema, 'UserLocation')
 
 module.exports = UserLocation

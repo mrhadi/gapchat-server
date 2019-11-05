@@ -2,7 +2,6 @@ const UserLocation = require('../models/userLocation')
 const User = require('../models/user')
 const logger = require('../utils/logger')
 const activityLogger = require('../utils/activityLogger')
-const geoDistance = require('../utils/geoDistance')
 
 const post = async locationData => {
   const requestedBy =
@@ -47,7 +46,6 @@ const post = async locationData => {
     return null
   }
 
-  let nearestUser = null
   let nearestLocation = null
   let furthestLocation = null
 
@@ -78,12 +76,6 @@ const post = async locationData => {
   ])
   if (nearestLocationAggregate) {
     nearestLocation = nearestLocationAggregate[0]
-    nearestUser = await User.findOne({ deviceId: nearestLocation.deviceId })
-    if (!nearestUser) {
-      logger.log(
-        `User: ${user.nickName}, can't find nearestUser, deviceId: ${nearestLocation.deviceId}, requestedBy: ${requestedBy}}`
-      )
-    }
   }
 
   const furthestLocationAggregate = await UserLocation.aggregate([
@@ -118,15 +110,9 @@ const post = async locationData => {
     furthestLocation = furthestLocationAggregate[0]
   }
 
-  logger.log(
-    `User: ${user.nickName}, Nearest: ${
-      nearestUser ? nearestUser.nickName : ''
-    }, Distance: [${nearestLocation ? nearestLocation.distance : 0}, ${
-      furthestLocation ? furthestLocation.distance : 0
-    }], RequestedBy: ${requestedBy}`
-  )
+  logger.log(`User: ${user.nickName}, RequestedBy: ${requestedBy}`)
 
-  return { nearestLocation, nearestUser, furthestLocation }
+  return { nearestLocation, furthestLocation }
 }
 
 module.exports = { post }
