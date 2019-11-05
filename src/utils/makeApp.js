@@ -15,7 +15,6 @@ const makeApp = async () => {
   const app = express()
   app.locals.moment = moment
 
-  app.use(bugsnagMiddleware.requestHandler)
   app.set('views', './src/views')
   app.set('view engine', 'pug')
   app.use(express.static('public'))
@@ -25,6 +24,7 @@ const makeApp = async () => {
   app.use(bugsnagMiddleware.errorHandler)
   app.use(notFoundError)
   app.use(genericErrors) // must be last
+
   return app
 }
 
