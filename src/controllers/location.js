@@ -49,8 +49,9 @@ const post = async locationData => {
 
   let nearestUser = null
   let distance = null
+  let nearestLocation = null
 
-  const nearestLocation = await UserLocation.aggregate([
+  const nearestLocationAggregate = await UserLocation.aggregate([
     {
       $geoNear: {
         near: {
@@ -71,7 +72,8 @@ const post = async locationData => {
     }
   ])
 
-  if (nearestLocation) {
+  if (nearestLocationAggregate) {
+    nearestLocation = nearestLocationAggregate[0]
     console.log('nearestLocation:', nearestLocation)
     nearestUser = await User.findOne({ deviceId: nearestLocation.deviceId })
     if (!nearestUser) {
@@ -80,6 +82,8 @@ const post = async locationData => {
       )
     }
 
+    distance = nearestLocation.dist.calculated
+    /*
     const nearestLocationData = nearestLocation.location.coordinates
     distance = geoDistance(
       locationData.latitude,
@@ -88,6 +92,7 @@ const post = async locationData => {
       nearestLocationData[0],
       'M'
     )
+    */
   }
 
   logger.log(
