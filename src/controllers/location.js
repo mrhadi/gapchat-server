@@ -59,7 +59,8 @@ const post = async locationData => {
             type: 'Point',
             coordinates: [locationData.longitude, locationData.latitude]
           },
-          $maxDistance: user.nearest
+          distanceField: 'dist.calculated'
+          // $maxDistance: user.nearest
         }
       }
     },
@@ -71,6 +72,7 @@ const post = async locationData => {
   ).sort('-updatedAt')
 
   if (nearestLocation) {
+    console.log('nearestLocation:', nearestLocation)
     nearestUser = await User.findOne({ deviceId: nearestLocation.deviceId })
     if (!nearestUser) {
       logger.log(
