@@ -7,9 +7,6 @@ const routes = require('../routes')
 
 const genericErrors = require('./genericErrors')
 const notFoundError = require('./notFoundError')
-const { bugsnagClient } = require('../bugsnag')
-
-const bugsnagMiddleware = bugsnagClient.getPlugin('express')
 
 const makeApp = async () => {
   const app = express()
@@ -21,7 +18,6 @@ const makeApp = async () => {
   app.use(cors())
   app.use(bodyParser.json())
   app.use('/', routes)
-  app.use(bugsnagMiddleware.errorHandler)
   app.use(notFoundError)
   app.use(genericErrors) // must be last
 
