@@ -47,47 +47,54 @@ const post = async locationData => {
     return null
   }
 
-  const nearest = await UserLocation.findOne({
-    deviceId: { $ne: user.deviceId },
-    location: {
-      $near: {
-        $geometry: {
-          type: 'Point',
-          coordinates: [locationData.longitude, locationData.latitude]
-        },
-        $maxDistance: user.nearest
+  let nearestUser = null
+  let distance = null
+
+  const nearestLocation = await UserLocation.findOne(
+    {
+      deviceId: { $ne: user.deviceId },
+      location: {
+        $near: {
+          $geometry: {
+            type: 'Point',
+            coordinates: [locationData.longitude, locationData.latitude]
+          },
+          $maxDistance: user.nearest
+        }
       }
+    },
+    {
+      deviceId: 1,
+      location: 1,
+      updatedAt: 1
     }
-  }).sort('-updatedAt')
-  if (!nearest) {
-    logger.log(
-      `User: ${user.nickName}, can't find any nearby user, requestedBy: ${requestedBy}`
-    )
-    return { userLocation }
-  }
+  ).sort('-updatedAt')
 
-  const nearestUser = await User.findOne({ deviceId: nearest.deviceId })
-  if (!nearestUser) {
-    logger.log(
-      `User: ${user.nickName}, can't find nearestUser, deviceId: ${nearest.deviceId}, requestedBy: ${requestedBy}}`
-    )
-    return { userLocation }
-  }
+  if (nearestLocation) {
+    nearestUser = await User.findOne({ deviceId: nearestLocation.deviceId })
+    if (!nearestUser) {
+      logger.log(
+        `User: ${user.nickName}, can't find nearestUser, deviceId: ${nearestLocation.deviceId}, requestedBy: ${requestedBy}}`
+      )
+    }
 
-  const nearestLocation = nearest.location.coordinates
-  const distance = geoDistance(
-    locationData.latitude,
-    locationData.longitude,
-    nearestLocation[1],
-    nearestLocation[0],
-    'M'
-  )
+    const nearestLocationData = nearestLocation.location.coordinates
+    distance = geoDistance(
+      locationData.latitude,
+      locationData.longitude,
+      nearestLocationData[1],
+      nearestLocationData[0],
+      'M'
+    )
+  }
 
   logger.log(
-    `User: ${user.nickName}, Nearest: ${nearestUser.nickName}, Distance: ${distance}, requestedBy: ${requestedBy}`
+    `User: ${user.nickName}, Nearest: ${
+      nearestUser ? nearestUser.nickName : ''
+    }, Distance: ${distance}, RequestedBy: ${requestedBy}`
   )
 
-  return { userLocation, nearest, nearestUser, distance }
+  return { nearestLocation, nearestUser, distance }
 }
 
 module.exports = { post }
