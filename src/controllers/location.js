@@ -108,9 +108,9 @@ const post = async locationData => {
   logger.log(
     `User: ${user.nickName}, Nearest: ${
       nearestUser ? nearestUser.nickName : ''
-    }, Distance: ${
-      nearestLocation ? nearestLocation.distance : ''
-    }, RequestedBy: ${requestedBy}`
+    }, Distance: [${nearestLocation ? nearestLocation.distance : 0}, ${
+      furthestLocation ? furthestLocation.distance : 0
+    }], RequestedBy: ${requestedBy}`
   )
 
   return { nearestLocation, nearestUser, furthestLocation }
