@@ -49,6 +49,7 @@ const post = async locationData => {
 
   let nearestUser = null
   let nearestLocation = null
+  let furthestLocation = null
 
   const nearestLocationAggregate = await UserLocation.aggregate([
     {
@@ -57,9 +58,9 @@ const post = async locationData => {
           type: 'Point',
           coordinates: [locationData.longitude, locationData.latitude]
         },
-        distanceField: 'dist.calculated',
+        distanceField: 'distanced',
         query: { deviceId: { $ne: user.deviceId } },
-        includeLocs: 'dist.location',
+        includeLocs: 'locationn',
         spherical: true
       }
     },
@@ -91,11 +92,12 @@ const post = async locationData => {
       $limit: 1
     }
   ])
-  console.log('furthestLocationAggregate:', furthestLocationAggregate)
+  if (furthestLocationAggregate) {
+    furthestLocation = furthestLocationAggregate[0]
+  }
 
   if (nearestLocationAggregate) {
     nearestLocation = nearestLocationAggregate[0]
-    console.log('nearestLocation:', nearestLocation)
     nearestUser = await User.findOne({ deviceId: nearestLocation.deviceId })
     if (!nearestUser) {
       logger.log(
@@ -108,11 +110,11 @@ const post = async locationData => {
     `User: ${user.nickName}, Nearest: ${
       nearestUser ? nearestUser.nickName : ''
     }, Distance: ${
-      nearestLocation ? nearestLocation.dist.calculated : ''
+      nearestLocation ? nearestLocation.distance : ''
     }, RequestedBy: ${requestedBy}`
   )
 
-  return { nearestLocation, nearestUser }
+  return { nearestLocation, nearestUser, furthestLocation }
 }
 
 module.exports = { post }
