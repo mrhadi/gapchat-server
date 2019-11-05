@@ -48,7 +48,6 @@ const post = async locationData => {
   }
 
   let nearestUser = null
-  let distance = null
   let nearestLocation = null
 
   const nearestLocationAggregate = await UserLocation.aggregate([
@@ -81,27 +80,17 @@ const post = async locationData => {
         `User: ${user.nickName}, can't find nearestUser, deviceId: ${nearestLocation.deviceId}, requestedBy: ${requestedBy}}`
       )
     }
-
-    distance = nearestLocation.dist.calculated
-    /*
-    const nearestLocationData = nearestLocation.location.coordinates
-    distance = geoDistance(
-      locationData.latitude,
-      locationData.longitude,
-      nearestLocationData[1],
-      nearestLocationData[0],
-      'M'
-    )
-    */
   }
 
   logger.log(
     `User: ${user.nickName}, Nearest: ${
       nearestUser ? nearestUser.nickName : ''
-    }, Distance: ${distance}, RequestedBy: ${requestedBy}`
+    }, Distance: ${
+      nearestLocation ? nearestLocation.dist.calculated : ''
+    }, RequestedBy: ${requestedBy}`
   )
 
-  return { nearestLocation, nearestUser, distance }
+  return { nearestLocation, nearestUser }
 }
 
 module.exports = { post }
