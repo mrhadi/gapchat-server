@@ -3,7 +3,7 @@ const City = require('../models/user')
 const UserLocation = require('../models/userLocation')
 
 const fakeLocation = async () => {
-  const fakeLocations = []
+  const updatedLocations = []
   const randomUsers = await User.aggregate([
     {
       $match: {
@@ -18,9 +18,11 @@ const fakeLocation = async () => {
   ])
 
   for (const user of randomUsers) {
+    console.log('User:', user.nickName)
     const city = await City.findOne({ cityName: user.nickName })
 
     if (city) {
+      console.log('City:', city.cityName)
       const location = {
         deviceId: user['device-id'],
         speed: 0,
@@ -37,11 +39,11 @@ const fakeLocation = async () => {
         { new: true, upsert: true, setDefaultsOnInsert: true }
       )
 
-      fakeLocations.push(userLocation)
+      updatedLocations.push(userLocation)
     }
   }
 
-  return fakeLocations
+  return updatedLocations
 }
 
 module.exports = { fakeLocation }
