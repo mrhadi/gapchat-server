@@ -10,4 +10,4 @@ const deleteInactiveLocations = async () => {
 }
 
 logger.log('Scheduled tasks started ...')
-deleteInactiveLocations()
+// deleteInactiveLocations()
