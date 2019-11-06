@@ -32,6 +32,9 @@ const schema = new Schema(
     deviceId: {
       type: String,
       required: [true]
+    },
+    type: {
+      type: String
     }
   },
   {
@@ -40,6 +43,7 @@ const schema = new Schema(
 )
 
 schema.index({ deviceId: 1 })
+schema.index({ type: 1 })
 
 const User = mongoose.model('User', schema, 'User')
 
