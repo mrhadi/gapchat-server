@@ -1,5 +1,5 @@
 const User = require('../models/user')
-const City = require('../models/user')
+const City = require('../models/city')
 const UserLocation = require('../models/userLocation')
 
 const fakeLocation = async () => {
