@@ -18,11 +18,9 @@ const fakeLocation = async () => {
   ])
 
   for (const user of randomUsers) {
-    console.log('User:', user.nickName)
     const city = await City.findOne({ cityName: user.nickName })
 
     if (city) {
-      console.log('City:', city.cityName)
       const location = {
         deviceId: user['device-id'],
         speed: 0,

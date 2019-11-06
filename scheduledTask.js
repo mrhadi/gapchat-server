@@ -1,4 +1,5 @@
 require('dotenv').config()
+
 const axios = require('./src/axios')
 const logger = require('./src/utils/logger')
 
@@ -9,5 +10,19 @@ const deleteInactiveLocations = async () => {
   }
 }
 
-logger.log('Scheduled tasks started ...')
-// deleteInactiveLocations()
+const updateFakeLocations = async () => {
+  const res = await axios.get('/task/fake-location')
+  if (res && res.data) {
+    logger.log('updateFakeLocations: Done')
+  }
+}
+
+logger.log('Scheduled tasks started')
+;(async () => {
+  try {
+    await updateFakeLocations()
+  } catch (error) {
+    logger.log(error)
+  }
+})()
+logger.log('Scheduled tasks ended')
