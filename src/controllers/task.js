@@ -22,7 +22,7 @@ const fakeLocation = async () => {
 
     if (city) {
       const location = {
-        deviceId: user['device-id'],
+        deviceId: user.deviceId,
         speed: 0,
         location: {
           type: 'Point',
