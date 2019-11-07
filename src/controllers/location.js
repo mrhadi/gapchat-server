@@ -90,8 +90,8 @@ const post = async locationData => {
         minDistance: user.furthest,
         distanceField: 'distance',
         // query: { deviceId: { $ne: user.deviceId } },
-        includeLocs: 'location'
-        // spherical: true
+        includeLocs: 'location',
+        spherical: true
       }
     },
     {
@@ -109,7 +109,7 @@ const post = async locationData => {
   if (furthestLocationAggregate) {
     furthestLocation = furthestLocationAggregate[0]
   }
-
+  logger.log('furthestLocationAggregate:', furthestLocationAggregate)
   /*
       {
       $sort: { distance: -1 }
