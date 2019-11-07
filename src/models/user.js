@@ -35,6 +35,15 @@ const schema = new Schema(
     },
     type: {
       type: String
+    },
+    cityName: {
+      type: String
+    },
+    countryName: {
+      type: String
+    },
+    countryCode: {
+      type: String
     }
   },
   {
