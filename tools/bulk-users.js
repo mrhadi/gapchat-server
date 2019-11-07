@@ -8,8 +8,8 @@ const logger = require('../src/utils/logger')
 const City = require('../src/models/city')
 const User = require('../src/models/user')
 
-const fromCityCode = 1
-const toCityCode = 100
+const fromCityCode = 101
+const toCityCode = 5000
 const deleteCurrentBulkUsers = false
 
 let nameList
