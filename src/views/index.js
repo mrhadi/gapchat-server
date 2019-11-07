@@ -20,11 +20,13 @@ router.get(
         $sort: { updatedAt: -1 }
       },
       {
-        $limit: 500
+        $limit: 200
       }
     ])
 
-    res.render('userLocation', { userLocation })
+    const numUserLocation = UserLocation.estimatedDocumentCount()
+
+    res.render('userLocation', { userLocation, numUserLocation })
   })
 )
 
@@ -33,7 +35,9 @@ router.get(
   asyncHandler(async (req, res) => {
     const activityLog = await ActivityLog.find({
       deviceId: req.params.deviceId
-    }).sort('-updatedAt')
+    })
+      .sort('-updatedAt')
+      .limit(200)
 
     res.render('activityLog', { activityLog })
   })
