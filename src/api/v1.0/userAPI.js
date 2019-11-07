@@ -32,7 +32,10 @@ router.post(
     check('avatar').isString(),
     check('nearest').isInt(),
     check('furthest').isInt(),
-    check('device-id').isString()
+    check('device-id').isString(),
+    check('type').optional({ nullable: true }),
+    check('latitude').optional({ nullable: true }),
+    check('longitude').optional({ nullable: true })
   ],
   asyncHandler(async (req, res) => {
     const result = validationResult(req)
