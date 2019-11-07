@@ -3,7 +3,7 @@ const logger = require('./utils/logger')
 
 const instance = axios.create({
   baseURL: process.env.API_ENDPOINT,
-  timeout: 5000
+  timeout: 10000
 })
 
 instance.interceptors.response.use(
