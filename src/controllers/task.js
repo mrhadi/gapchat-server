@@ -18,7 +18,10 @@ const fakeLocation = async () => {
   ])
 
   for (const user of randomUsers) {
-    const city = await City.findOne({ cityName: user.nickName })
+    const city = await City.findOne({
+      cityName: user.cityName,
+      countryCode: user.countryCode
+    })
 
     if (city) {
       const location = {
@@ -32,7 +35,7 @@ const fakeLocation = async () => {
       }
 
       const userLocation = await UserLocation.findOneAndUpdate(
-        { deviceId: user['device-id'] },
+        { deviceId: user.deviceId },
         location,
         { new: true, upsert: true, setDefaultsOnInsert: true }
       )

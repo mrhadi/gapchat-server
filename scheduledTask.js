@@ -20,7 +20,7 @@ const updateFakeLocations = async () => {
 logger.log('Scheduled tasks started ...')
 ;(async () => {
   try {
-    // await updateFakeLocations()
+    await updateFakeLocations()
   } catch (error) {
     logger.log(error)
   }

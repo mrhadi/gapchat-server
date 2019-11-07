@@ -1,12 +1,16 @@
 require('dotenv').config({ path: '../.env' })
+
 const csv = require('csvtojson')
+const shortid = require('shortid')
+
 const dbConnection = require('../src/db/dbConnection')
 const logger = require('../src/utils/logger')
 const City = require('../src/models/city')
 const User = require('../src/models/user')
 
-const fromCode = 1
-const toCode = 100
+const fromCityCode = 1
+const toCityCode = 100
+const deleteCurrentBulkUsers = false
 
 let nameList
 
@@ -16,12 +20,15 @@ const deleteBulkUsers = async () => {
 }
 
 const addBulkUsers = async () => {
-  for (let code = fromCode; code <= toCode; code++) {
+  for (let code = fromCityCode; code <= toCityCode; code++) {
     const randIndex = Math.floor(Math.random() * nameList.length)
     const randName = nameList[randIndex][0]
-    console.log('randName:', randName)
 
     const city = await City.findOne({ code: code })
+    if (!city) {
+      console.log('City code not found:', code)
+      continue
+    }
 
     let avatar = Math.floor(Math.random() * 110) + 1
     avatar = avatar < 10 ? `00${avatar}` : avatar < 100 ? `0${avatar}` : avatar
@@ -29,18 +36,13 @@ const addBulkUsers = async () => {
     const user = new User({
       nickName: randName,
       avatar: 'avatar_' + avatar,
-      nearest: 1000,
-      furthest: 20000,
+      nearest: 5000,
+      furthest: 15000,
       type: 'Bulk-CityCenter',
       cityName: city.cityName,
       countryName: city.countryName,
       countryCode: city.countryCode,
-      deviceId:
-        city.cityName.replace(' ', '') +
-        '-' +
-        city.countryName.replace(' ', '') +
-        '-' +
-        city.code
+      deviceId: shortid.generate() + city.countryCode + avatar
     })
     console.log(user)
 
@@ -58,10 +60,8 @@ dbConnection.once('open', async () => {
     trim: true,
     output: 'csv'
   }).fromFile('./csv/names.csv')
-  console.log('nameList:', nameList.length)
 
-  // await deleteBulkUsers()
-  // await addBulkUsers()
+  if (deleteCurrentBulkUsers) await deleteBulkUsers()
+
+  await addBulkUsers()
 })
-
-
