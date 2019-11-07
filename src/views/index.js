@@ -24,7 +24,7 @@ router.get(
       }
     ])
 
-    const numUserLocation = UserLocation.estimatedDocumentCount()
+    const numUserLocation = UserLocation.count()
     console.log('numUserLocation', numUserLocation)
     res.render('userLocation', { userLocation, numUserLocation })
   })
