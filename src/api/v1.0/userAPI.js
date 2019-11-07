@@ -41,8 +41,10 @@ router.post(
     }
 
     const userData = matchedData(req, {
-      locations: ['body', 'headers']
+      locations: ['body', 'headers'],
+      includeOptionals: true
     })
+
     const retVal = await post(userData)
     res.status(200).send(retVal)
   })
