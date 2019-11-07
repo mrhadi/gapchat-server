@@ -57,7 +57,7 @@ const post = async locationData => {
           coordinates: [locationData.longitude, locationData.latitude]
         },
         distanceField: 'distance',
-        // query: { deviceId: { $ne: user.deviceId } },
+        query: { deviceId: { $ne: user.deviceId } },
         includeLocs: 'location'
         // spherical: true
       }
