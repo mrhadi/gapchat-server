@@ -86,6 +86,7 @@ const post = async locationData => {
           type: 'Point',
           coordinates: [locationData.longitude, locationData.latitude]
         },
+        minDistance: user.furthest,
         distanceField: 'distance',
         // query: { deviceId: { $ne: user.deviceId } },
         includeLocs: 'location'
