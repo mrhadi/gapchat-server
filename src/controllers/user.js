@@ -12,6 +12,7 @@ const post = async userData => {
     avatar: userData.avatar,
     nearest: userData.nearest,
     furthest: userData.furthest,
+    type: userData.type ? userData.type : null,
     deviceId: userData['device-id']
   })
 
