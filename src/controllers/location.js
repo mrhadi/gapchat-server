@@ -79,6 +79,7 @@ const post = async locationData => {
     nearestLocation = nearestLocationAggregate[0]
   }
 
+  logger.log('user.furthest:', user.furthest)
   const furthestLocationAggregate = await UserLocation.aggregate([
     {
       $geoNear: {
@@ -102,9 +103,6 @@ const post = async locationData => {
       }
     },
     {
-      $sort: { distance: -1 }
-    },
-    {
       $limit: 1
     }
   ])
@@ -112,6 +110,11 @@ const post = async locationData => {
     furthestLocation = furthestLocationAggregate[0]
   }
 
+  /*
+      {
+      $sort: { distance: -1 }
+    },
+  */
   logger.log(`User: ${user.nickName}, RequestedBy: ${requestedBy}`)
 
   return { nearestLocation, furthestLocation }
