@@ -79,7 +79,6 @@ const post = async locationData => {
     nearestLocation = nearestLocationAggregate[0]
   }
 
-  logger.log('user.furthest:', user.furthest)
   const furthestLocationAggregate = await UserLocation.aggregate([
     {
       $geoNear: {
@@ -90,8 +89,8 @@ const post = async locationData => {
         minDistance: user.furthest * 1000, // km -> m
         distanceField: 'distance',
         // query: { deviceId: { $ne: user.deviceId } },
-        includeLocs: 'location',
-        spherical: true
+        includeLocs: 'location'
+        // spherical: true
       }
     },
     {
@@ -103,18 +102,13 @@ const post = async locationData => {
       }
     },
     {
-      $limit: 5
+      $limit: 1
     }
   ])
   if (furthestLocationAggregate) {
     furthestLocation = furthestLocationAggregate[0]
   }
-  logger.log('furthestLocationAggregate:', furthestLocationAggregate)
-  /*
-      {
-      $sort: { distance: -1 }
-    },
-  */
+
   logger.log(`User: ${user.nickName}, RequestedBy: ${requestedBy}`)
 
   return { nearestLocation, furthestLocation }
