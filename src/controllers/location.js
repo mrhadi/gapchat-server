@@ -87,7 +87,7 @@ const post = async locationData => {
           type: 'Point',
           coordinates: [locationData.longitude, locationData.latitude]
         },
-        minDistance: user.furthest,
+        minDistance: user.furthest * 1000, // km -> m
         distanceField: 'distance',
         // query: { deviceId: { $ne: user.deviceId } },
         includeLocs: 'location',
@@ -103,7 +103,7 @@ const post = async locationData => {
       }
     },
     {
-      $limit: 1
+      $limit: 5
     }
   ])
   if (furthestLocationAggregate) {
