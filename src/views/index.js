@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const asyncHandler = require('express-async-handler')
+const numeral = require('numeral')
 
 const UserLocation = require('../models/userLocation')
 const ActivityLog = require('../models/activityLog')
@@ -24,8 +25,9 @@ router.get(
       }
     ])
 
-    const numUserLocation = await UserLocation.count()
-    console.log('numUserLocation', numUserLocation)
+    let numUserLocation = await UserLocation.estimatedDocumentCount()
+    numUserLocation = numeral(numUserLocation).format('0,0')
+
     res.render('userLocation', { userLocation, numUserLocation })
   })
 )

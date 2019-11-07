@@ -36,6 +36,7 @@
     "moment-timezone": "^0.5.27",
     "mongoose": "^5.7.1",
     "node-http-error": "^2.0.0",
+    "numeral": "^2.0.6",
     "pug": "^2.0.4",
     "route-async": "^1.0.5",
     "shortid": "^2.2.15"
