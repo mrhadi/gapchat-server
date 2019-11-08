@@ -113,7 +113,9 @@ const post = async locationData => {
     furthestLocation = furthestLocationAggregate[0]
   }
 
-  logger.log(`User: ${user.nickName}, RequestedBy: ${requestedBy}`)
+  logger.log(
+    `User: ${user.nickName}, RequestedBy: ${requestedBy}, [${locationData.longitude}, ${locationData.latitude}]`
+  )
 
   return { nearestLocation, furthestLocation }
 }
