@@ -88,7 +88,6 @@ const post = async locationData => {
         },
         minDistance: user.furthest * 1000, // km -> m
         distanceField: 'distance',
-        // query: { deviceId: { $ne: user.deviceId } },
         includeLocs: 'location'
         // spherical: true
       }

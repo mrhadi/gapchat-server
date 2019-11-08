@@ -12,7 +12,7 @@ const fakeLocation = async () => {
     },
     {
       $sample: {
-        size: 10
+        size: 20
       }
     }
   ])
