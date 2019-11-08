@@ -24,6 +24,10 @@ const post = async locationData => {
     logger.log(`Can't find user, deviceId: ${location.deviceId}`)
     return null
   }
+  if (!user.active) {
+    logger.log(`User: ${user.nickName} is not active`)
+    return null
+  }
 
   const activityObject = {
     context: 'UserLocation',

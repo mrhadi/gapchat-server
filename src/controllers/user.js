@@ -54,6 +54,10 @@ const updateUser = async userData => {
     { new: true }
   )
 
+  if (!userData.active) {
+    await UserLocation.findOneAndDelete({ deviceId: userData['device-id'] })
+  }
+
   return res
 }
 
