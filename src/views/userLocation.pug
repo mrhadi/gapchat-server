@@ -11,6 +11,8 @@ html
             th RequestedBy
             th Last Update
             th User
+            th City
+            th Country
             th DeviceId
         tbody
           each location in userLocation
@@ -22,6 +24,8 @@ html
                 th= location.fromUser[0].nickName
               else
                 th= ''
+              th= location.cityName
+              th= location.countryName
               th
                 a(href=url)= location.deviceId
 
