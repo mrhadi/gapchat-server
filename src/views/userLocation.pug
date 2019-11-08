@@ -24,8 +24,8 @@ html
                 th= location.fromUser[0].nickName
               else
                 th= ''
-              th= location.cityName
-              th= location.countryName
+              th= location.fromUser[0].cityName
+              th= location.fromUser[0].countryName
               th
                 a(href=url)= location.deviceId
 
