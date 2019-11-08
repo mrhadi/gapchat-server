@@ -68,10 +68,7 @@ router.put(
       return res.status(422).json({ errors: result.array() })
     }
 
-    const userData = matchedData(req, {
-      locations: ['body', 'headers'],
-      includeOptionals: true
-    })
+    const userData = matchedData(req)
 
     const retVal = await updateUser(userData)
     res.status(200).send(retVal)
