@@ -43,6 +43,7 @@ const updateUser = async userData => {
   const user = {
     nickName: userData.nickName,
     avatar: userData.avatar,
+    active: userData.active,
     nearest: userData.nearest,
     furthest: userData.furthest
   }

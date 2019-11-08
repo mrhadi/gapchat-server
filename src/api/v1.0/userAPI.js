@@ -44,7 +44,6 @@ router.post(
     }
 
     const userData = matchedData(req, {
-      locations: ['body', 'headers'],
       includeOptionals: true
     })
 
@@ -60,6 +59,7 @@ router.put(
     check('avatar').isString(),
     check('nearest').isInt(),
     check('furthest').isInt(),
+    check('active').isBoolean(),
     check('device-id').isString()
   ],
   asyncHandler(async (req, res) => {
