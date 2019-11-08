@@ -101,7 +101,7 @@ const post = async locationData => {
       }
     },
     {
-      $limit: 1
+      $limit: 5
     }
   ])
   logger.log('furthestLocationAggregate:', furthestLocationAggregate)
