@@ -1,12 +1,12 @@
 const User = require('../models/user')
 const UserLocation = require('../models/userLocation')
 
-const get = async userData => {
+const getUser = async userData => {
   const user = await User.findOne({ deviceId: userData['device-id'] })
   return user
 }
 
-const post = async userData => {
+const addUser = async userData => {
   const user = new User({
     nickName: userData.nickName,
     avatar: userData.avatar,
@@ -39,4 +39,21 @@ const post = async userData => {
   return res
 }
 
-module.exports = { get, post }
+const updateUser = async userData => {
+  const user = {
+    nickName: userData.nickName,
+    avatar: userData.avatar,
+    nearest: userData.nearest,
+    furthest: userData.furthest
+  }
+
+  const res = await User.findOneAndUpdate(
+    { deviceId: userData['device-id'] },
+    user,
+    { new: true }
+  )
+
+  return res
+}
+
+module.exports = { getUser, addUser, updateUser }

@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const asyncHandler = require('express-async-handler')
 const { check, validationResult, matchedData } = require('express-validator')
-const { get, post } = require('../../controllers/user')
+const { getUser, addUser, updateUser } = require('../../controllers/user')
 
 router.get(
   '/',
@@ -16,7 +16,7 @@ router.get(
       locations: ['headers']
     })
 
-    const retVal = await get(userData)
+    const retVal = await getUser(userData)
     if (retVal) {
       res.status(200).send(retVal)
     } else {
@@ -48,7 +48,32 @@ router.post(
       includeOptionals: true
     })
 
-    const retVal = await post(userData)
+    const retVal = await addUser(userData)
+    res.status(200).send(retVal)
+  })
+)
+
+router.put(
+  '/',
+  [
+    check('nickName').isString(),
+    check('avatar').isString(),
+    check('nearest').isInt(),
+    check('furthest').isInt(),
+    check('device-id').isString()
+  ],
+  asyncHandler(async (req, res) => {
+    const result = validationResult(req)
+    if (!result.isEmpty()) {
+      return res.status(422).json({ errors: result.array() })
+    }
+
+    const userData = matchedData(req, {
+      locations: ['body', 'headers'],
+      includeOptionals: true
+    })
+
+    const retVal = await updateUser(userData)
     res.status(200).send(retVal)
   })
 )
