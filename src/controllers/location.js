@@ -31,7 +31,8 @@ const post = async locationData => {
   }
 
   const weather = getWeather(locationData.latitude, locationData.longitude)
-  logger.log('Weather: ', weather ? JSON.stringify(weather) : 'NULL')
+  logger.log('Weather:', weather)
+  logger.log('Weather:', weather !== null ? JSON.stringify(weather) : 'NULL')
 
   const activityObject = {
     context: 'UserLocation',
