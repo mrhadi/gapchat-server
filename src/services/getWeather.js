@@ -10,7 +10,6 @@ const getWeather = async (lat, lng) => {
       `${API_END_POINT}?access_key=${API_KEY}&query=${lat},${lng}`
     )
     if (res && res.data) {
-      logger.log('getWeather:', res.data)
       return res.data
     }
   } catch (err) {

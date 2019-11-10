@@ -31,6 +31,7 @@ const post = async locationData => {
   }
 
   const weather = getWeather(locationData.latitude, locationData.longitude)
+  logger.log('Weather: ', weather ? JSON.stringify(weather) : 'NULL')
 
   const activityObject = {
     context: 'UserLocation',
@@ -111,7 +112,6 @@ const post = async locationData => {
       $limit: 5
     }
   ])
-  logger.log('furthestLocationAggregate:', furthestLocationAggregate)
   if (furthestLocationAggregate) {
     furthestLocation = furthestLocationAggregate[0]
   }
