@@ -2,6 +2,7 @@ const UserLocation = require('../models/userLocation')
 const User = require('../models/user')
 const logger = require('../utils/logger')
 const activityLogger = require('../utils/activityLogger')
+const getWeather = require('../services/getWeather')
 
 const post = async locationData => {
   const requestedBy =
@@ -28,6 +29,8 @@ const post = async locationData => {
     logger.log(`User: ${user.nickName} is not active`)
     return null
   }
+
+  const weather = getWeather(locationData.latitude, locationData.longitude)
 
   const activityObject = {
     context: 'UserLocation',
