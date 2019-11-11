@@ -69,7 +69,8 @@ const updateUserLocation = async locationData => {
           type: 'Point',
           coordinates: [locationData.longitude, locationData.latitude]
         },
-        maxDistance: user.nearest,
+        // maxDistance: user.nearest,
+        minDistance: user.nearest,
         distanceField: 'distance',
         query: { deviceId: { $ne: user.deviceId } },
         includeLocs: 'location'
