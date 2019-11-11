@@ -9,6 +9,35 @@ const City = require('./src/models/city')
 const User = require('./src/models/user')
 const UserLocation = require('./src/models/userLocation')
 
+const updateLocationWeather = async () => {
+  const randomLocations = await UserLocation.aggregate([
+    {
+      $match: {
+        weather: null
+      }
+    },
+    {
+      $sample: {
+        size: 1
+      }
+    }
+  ])
+
+  for (const location of randomLocations) {
+    const weather = await getWeather(location.latitude, location.longitude)
+    if (weather) {
+      location.weather = JSON.stringify(weather)
+
+      await UserLocation.findOneAndUpdate(
+        { deviceId: location.deviceId },
+        location
+      )
+
+      logger.log('Weather updated for', location.deviceId)
+    }
+  }
+}
+
 const addCityCenterLocation = async () => {
   const updatedLocations = []
   const randomUsers = await User.aggregate([
@@ -75,6 +104,14 @@ dbConnection.once('open', async () => {
     logger.log(`addCityCenterLocation ended, ${res.length} locations added`)
   } catch (err) {
     logger.log('addCityCenterLocation:', err)
+  }
+
+  try {
+    logger.log('updateLocationWeather started')
+    // await updateLocationWeather()
+    logger.log('updateLocationWeather ended')
+  } catch (err) {
+    logger.log('updateLocationWeather:', err)
   }
 
   logger.log('Scheduled tasks ended')

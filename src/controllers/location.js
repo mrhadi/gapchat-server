@@ -125,7 +125,7 @@ const updateUserLocation = async locationData => {
     `User: ${user.nickName}, RequestedBy: ${requestedBy}, [${locationData.longitude}, ${locationData.latitude}]`
   )
 
-  return { nearestLocation, furthestLocation, weather }
+  return { nearestLocation, furthestLocation }
 }
 
 module.exports = { updateUserLocation }
