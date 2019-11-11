@@ -3,7 +3,9 @@ html
     title='GapChat'
     link(rel='stylesheet', href='/styles/bootstrap.min.css')
   body
-    div= numUserLocation
+    div= 'Total locations: ' + numUserLocation
+    div= 'No weather locations: ' + numNoWeather
+    div
     div(class='table-responsive text-nowrap')
       table(class='table table-bordered')
         thead

@@ -28,7 +28,10 @@ router.get(
     let numUserLocation = await UserLocation.estimatedDocumentCount()
     numUserLocation = numeral(numUserLocation).format('0,0')
 
-    res.render('userLocation', { userLocation, numUserLocation })
+    let numNoWeather = await UserLocation.count({ weather: null })
+    numNoWeather = numeral(numNoWeather).format('0,0')
+
+    res.render('userLocation', { userLocation, numUserLocation, numNoWeather })
   })
 )
 
