@@ -18,7 +18,7 @@ const updateLocationWeather = async () => {
     },
     {
       $sample: {
-        size: 10
+        size: 50
       }
     }
   ])
