@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const asyncHandler = require('express-async-handler')
 const { check, validationResult, matchedData } = require('express-validator')
-const { post } = require('../../controllers/location')
+const { updateUserLocation } = require('../../controllers/location')
 
 router.post(
   '/',
@@ -22,7 +22,7 @@ router.post(
       includeOptionals: true
     })
 
-    const retVal = await post(locationData)
+    const retVal = await updateUserLocation(locationData)
     res.status(200).send(retVal)
   })
 )

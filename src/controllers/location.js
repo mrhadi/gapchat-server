@@ -4,7 +4,7 @@ const logger = require('../utils/logger')
 const activityLogger = require('../utils/activityLogger')
 const getWeather = require('../services/getWeather')
 
-const post = async locationData => {
+const updateUserLocation = async locationData => {
   const requestedBy =
     locationData.metaData && locationData.metaData.requestedBy
       ? locationData.metaData.requestedBy
@@ -125,7 +125,7 @@ const post = async locationData => {
     `User: ${user.nickName}, RequestedBy: ${requestedBy}, [${locationData.longitude}, ${locationData.latitude}]`
   )
 
-  return { nearestLocation, furthestLocation }
+  return { nearestLocation, furthestLocation, weather }
 }
 
-module.exports = { post }
+module.exports = { updateUserLocation }
