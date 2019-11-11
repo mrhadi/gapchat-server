@@ -18,22 +18,30 @@ const updateLocationWeather = async () => {
     },
     {
       $sample: {
-        size: 1
+        size: 10
       }
     }
   ])
 
-  for (const location of randomLocations) {
-    const weather = await getWeather(location.latitude, location.longitude)
-    if (weather) {
-      location.weather = JSON.stringify(weather)
-
-      await UserLocation.findOneAndUpdate(
-        { deviceId: location.deviceId },
-        location
+  for (const userLocation of randomLocations) {
+    if (
+      userLocation.location.coordinates &&
+      userLocation.location.coordinates.length === 2
+    ) {
+      const weather = await getWeather(
+        userLocation.location.coordinates[1],
+        userLocation.location.coordinates[0]
       )
+      if (weather) {
+        userLocation.weather = JSON.stringify(weather)
 
-      logger.log('Weather updated for', location.deviceId)
+        await UserLocation.findOneAndUpdate(
+          { deviceId: userLocation.deviceId },
+          userLocation
+        )
+
+        logger.log('Weather updated for', userLocation.deviceId)
+      }
     }
   }
 }
@@ -108,7 +116,7 @@ dbConnection.once('open', async () => {
 
   try {
     logger.log('updateLocationWeather started')
-    // await updateLocationWeather()
+    await updateLocationWeather()
     logger.log('updateLocationWeather ended')
   } catch (err) {
     logger.log('updateLocationWeather:', err)
