@@ -11,6 +11,8 @@ const getWeather = async (lat, lng) => {
     )
     if (res && res.data) {
       return res.data
+    } else {
+      logger.log('getWeather: No data')
     }
   } catch (err) {
     logger.log('getWeather:', err)
