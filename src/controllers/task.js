@@ -1,6 +1,7 @@
 const User = require('../models/user')
 const City = require('../models/city')
 const UserLocation = require('../models/userLocation')
+const getWeather = require('../services/getWeather')
 
 const fakeLocation = async () => {
   const updatedLocations = []
@@ -32,6 +33,11 @@ const fakeLocation = async () => {
           coordinates: [city.longitude, city.latitude]
         },
         requestedBy: 'FakeLocation'
+      }
+
+      const weather = await getWeather(city.latitude, city.longitude)
+      if (weather) {
+        location.weather = JSON.stringify(weather)
       }
 
       const userLocation = await UserLocation.findOneAndUpdate(
