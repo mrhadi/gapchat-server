@@ -56,7 +56,7 @@ const addCityCenterLocation = async () => {
     },
     {
       $sample: {
-        size: 50
+        size: 100
       }
     }
   ])
