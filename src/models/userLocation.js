@@ -29,6 +29,9 @@ const schema = new Schema(
     },
     requestedBy: {
       type: String
+    },
+    weather: {
+      type: String
     }
   },
   {
