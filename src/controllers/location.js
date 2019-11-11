@@ -30,7 +30,10 @@ const post = async locationData => {
     return null
   }
 
-  const weather = getWeather(locationData.latitude, locationData.longitude)
+  const weather = await getWeather(
+    locationData.latitude,
+    locationData.longitude
+  )
   logger.log('Weather:', weather)
   logger.log('Weather:', weather !== null ? JSON.stringify(weather) : 'NULL')
 
