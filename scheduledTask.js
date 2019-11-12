@@ -47,7 +47,9 @@ const updateLocationWeather = async () => {
 }
 
 const addCityCenterLocation = async () => {
-  const updatedLocations = []
+  let updated = 0
+  let ignored = 0
+
   const randomUsers = await User.aggregate([
     {
       $match: {
@@ -64,7 +66,7 @@ const addCityCenterLocation = async () => {
   for (const user of randomUsers) {
     const location = await UserLocation.findOne({ deviceId: user.deviceId })
     if (location) {
-      logger.log(`addCityCenterLocation: Ignoring ${user.nickName}`)
+      ignored++
       continue
     }
 
@@ -89,17 +91,17 @@ const addCityCenterLocation = async () => {
         location.weather = JSON.stringify(weather)
       }
 
-      const userLocation = await UserLocation.findOneAndUpdate(
+      await UserLocation.findOneAndUpdate(
         { deviceId: user.deviceId },
         location,
         { new: true, upsert: true, setDefaultsOnInsert: true }
       )
 
-      updatedLocations.push(userLocation)
+      updated++
     }
   }
 
-  return updatedLocations
+  return { updated, ignored }
 }
 
 dbConnection.on('error', logger.error.bind(console, 'mongoose.connection:'))
@@ -109,7 +111,7 @@ dbConnection.once('open', async () => {
   try {
     logger.log('addCityCenterLocation started')
     const res = await addCityCenterLocation()
-    logger.log(`addCityCenterLocation ended, ${res.length} locations added`)
+    logger.log(`addCityCenterLocation ended: ${res}`)
   } catch (err) {
     logger.log('addCityCenterLocation:', err)
   }
