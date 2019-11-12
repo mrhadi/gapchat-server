@@ -111,7 +111,7 @@ dbConnection.once('open', async () => {
   try {
     logger.log('addCityCenterLocation started')
     const res = await addCityCenterLocation()
-    logger.log(`addCityCenterLocation ended: ${res}`)
+    logger.log(`addCityCenterLocation ended: ${JSON.stringify(res)}`)
   } catch (err) {
     logger.log('addCityCenterLocation:', err)
   }
