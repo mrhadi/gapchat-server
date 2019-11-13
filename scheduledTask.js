@@ -105,7 +105,8 @@ const addCityCenterLocation = async () => {
 }
 
 const unsetLocationWeather = async () => {
-  await UserLocation.updateMany({}, { $unset: { weather: 1 } })
+  const res = await UserLocation.updateMany({}, { $unset: { weather: 1 } })
+  return res
 }
 
 dbConnection.on('error', logger.error.bind(console, 'mongoose.connection:'))
@@ -122,8 +123,8 @@ dbConnection.once('open', async () => {
 
   try {
     logger.log('unsetLocationWeather started')
-    await unsetLocationWeather()
-    logger.log(`unsetLocationWeather ended`)
+    const res = await unsetLocationWeather()
+    logger.log(`unsetLocationWeather ended: ${JSON.stringify(res)}`)
   } catch (err) {
     logger.log('unsetLocationWeather:', err)
   }
