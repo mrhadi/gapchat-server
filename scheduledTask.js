@@ -58,7 +58,7 @@ const addCityCenterLocation = async () => {
     },
     {
       $sample: {
-        size: 300
+        size: 50
       }
     }
   ])
@@ -105,7 +105,7 @@ const addCityCenterLocation = async () => {
 }
 
 const unsetLocationWeather = async () => {
-  await UserLocation.updateMany({}, { $unset: { weather: '' } })
+  await UserLocation.updateMany({}, { $unset: { weather: 1 } })
 }
 
 dbConnection.on('error', logger.error.bind(console, 'mongoose.connection:'))
