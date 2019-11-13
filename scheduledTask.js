@@ -104,6 +104,10 @@ const addCityCenterLocation = async () => {
   return { updated, ignored }
 }
 
+const unsetLocationWeather = async () => {
+  await UserLocation.updateMany({}, { $unset: { weather: '' } })
+}
+
 dbConnection.on('error', logger.error.bind(console, 'mongoose.connection:'))
 dbConnection.once('open', async () => {
   logger.log('Scheduled tasks started ...')
@@ -114,6 +118,14 @@ dbConnection.once('open', async () => {
     logger.log(`addCityCenterLocation ended: ${JSON.stringify(res)}`)
   } catch (err) {
     logger.log('addCityCenterLocation:', err)
+  }
+
+  try {
+    logger.log('unsetLocationWeather started')
+    await unsetLocationWeather()
+    logger.log(`unsetLocationWeather ended`)
+  } catch (err) {
+    logger.log('unsetLocationWeather:', err)
   }
 
   logger.log('Scheduled tasks ended')
