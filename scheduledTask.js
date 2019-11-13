@@ -116,14 +116,6 @@ dbConnection.once('open', async () => {
     logger.log('addCityCenterLocation:', err)
   }
 
-  try {
-    logger.log('updateLocationWeather started')
-    await updateLocationWeather()
-    logger.log('updateLocationWeather ended')
-  } catch (err) {
-    logger.log('updateLocationWeather:', err)
-  }
-
   logger.log('Scheduled tasks ended')
 })
 
