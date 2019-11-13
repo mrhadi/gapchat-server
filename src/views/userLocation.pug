@@ -16,11 +16,9 @@ html
             th City
             th Country
             th DeviceId
-            th Weather
         tbody
           each location in userLocation
             - url = 'location/' + location.deviceId
-            - weather = location.weather ? JSON.parse(location.weather) : null
             tr
               th= location.requestedBy
               th= moment(location.updatedAt).tz('Australia/Sydney').format('YYYY-MM-DD hh:mm:ss a')
@@ -32,8 +30,4 @@ html
               th= location.fromUser[0].countryName
               th
                 a(href=url)= location.deviceId
-              if weather
-                th= weather.location.name + ', ' + weather.location.country + ', ' + weather.location.region
-              else
-                th= location.weather
 

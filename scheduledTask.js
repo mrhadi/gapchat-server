@@ -121,14 +121,6 @@ dbConnection.once('open', async () => {
     logger.log('addCityCenterLocation:', err)
   }
 
-  try {
-    logger.log('unsetLocationWeather started')
-    const res = await unsetLocationWeather()
-    logger.log(`unsetLocationWeather ended: ${JSON.stringify(res)}`)
-  } catch (err) {
-    logger.log('unsetLocationWeather:', err)
-  }
-
   logger.log('Scheduled tasks ended')
 })
 
