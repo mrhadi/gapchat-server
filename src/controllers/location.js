@@ -30,16 +30,6 @@ const updateUserLocation = async locationData => {
     return null
   }
 
-  /*
-  const weather = await getWeather(
-    locationData.latitude,
-    locationData.longitude
-  )
-  if (weather) {
-    location.weather = JSON.stringify(weather)
-  }
-  */
-
   const activityObject = {
     context: 'UserLocation',
     type: 'Log',

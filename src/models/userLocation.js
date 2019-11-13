@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const logger = require('../utils/logger')
 
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
@@ -28,9 +27,6 @@ const schema = new Schema(
       }
     },
     requestedBy: {
-      type: String
-    },
-    weather: {
       type: String
     }
   },
