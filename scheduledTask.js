@@ -113,14 +113,6 @@ dbConnection.on('error', logger.error.bind(console, 'mongoose.connection:'))
 dbConnection.once('open', async () => {
   logger.log('Scheduled tasks started ...')
 
-  try {
-    logger.log('addCityCenterLocation started')
-    const res = await addCityCenterLocation()
-    logger.log(`addCityCenterLocation ended: ${JSON.stringify(res)}`)
-  } catch (err) {
-    logger.log('addCityCenterLocation:', err)
-  }
-
   logger.log('Scheduled tasks ended')
 })
 
