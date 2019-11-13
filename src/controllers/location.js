@@ -30,6 +30,7 @@ const updateUserLocation = async locationData => {
     return null
   }
 
+  /*
   const weather = await getWeather(
     locationData.latitude,
     locationData.longitude
@@ -37,6 +38,7 @@ const updateUserLocation = async locationData => {
   if (weather) {
     location.weather = JSON.stringify(weather)
   }
+  */
 
   const activityObject = {
     context: 'UserLocation',
@@ -91,6 +93,13 @@ const updateUserLocation = async locationData => {
   ])
   if (nearestLocationAggregate) {
     nearestLocation = nearestLocationAggregate[0]
+    const weather = await getWeather(
+      nearestLocation.location.coordinates[1],
+      nearestLocation.location.coordinates[0]
+    )
+    if (weather) {
+      nearestLocation.weather = JSON.stringify(weather)
+    }
   }
 
   const furthestLocationAggregate = await UserLocation.aggregate([
@@ -120,6 +129,13 @@ const updateUserLocation = async locationData => {
   ])
   if (furthestLocationAggregate) {
     furthestLocation = furthestLocationAggregate[0]
+    const weather = await getWeather(
+      furthestLocation.location.coordinates[1],
+      furthestLocation.location.coordinates[0]
+    )
+    if (weather) {
+      furthestLocation.weather = JSON.stringify(weather)
+    }
   }
 
   logger.log(
